@@ -17,7 +17,7 @@
   <h4>
     <a href="https://procalculatormanu.netlify.app">View Live Demo 🚀</a>
     <span> · </span>
-    <a href="mailto:manuchauhan2004@gmail.com?subject=Bug Report - Pro Scientific Calculator">Report Bug 🪲</a>
+    <a href="#contact">Report Bug 🪲</a>
   </h4>
 </div>
 
