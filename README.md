@@ -91,17 +91,24 @@ To run this project locally on your machine, follow these simple steps.
 
 ## 🧠 Code Highlight
 
-The calculator uses a custom parsing logic to handle scientific inputs seamlessly before evaluation:
+  Sneak peak of the code. 
 
-```javascript
-// Example: Converting visual syntax to JavaScript Math functions
-function calculate() {
-    let expression = currentInput;
+<div class="calculator">
     
-    // Replace visual symbols with JS Math functions
-    expression = expression.replace(/sin/g, 'Math.sin');
-    expression = expression.replace(/π/g, 'Math.PI');
-    expression = expression.replace(/\^/g, '**');
+    <div class="mode-indicator" id="modeBtn" onclick="toggleMode()">DEG</div>
+    <div class="history-icon" onclick="toggleHistory()">🕒</div>
 
-    // ... evaluation logic
-}
+    <div class="display">
+        <div id="expression"></div>
+        <div id="result">0</div>
+    </div>
+
+    <div class="history-drawer" id="historyDrawer">
+        <div class="drawer-header">
+            <h3>History</h3>
+            <button class="close-btn" onclick="toggleHistory()">✕</button>
+        </div>
+        <div class="history-list" id="historyList">
+            </div>
+        <button class="clear-btn" onclick="clearHistory()">Clear All History</button>
+    </div>
