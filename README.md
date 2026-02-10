@@ -16,10 +16,6 @@
 
   <h4>
     <a href="https://procalculatormanu.netlify.app">View Live Demo 🚀</a>
-    <span> · </span>
-    <a href="#contact">Report Bug 🪲</a>
-  </h4>
-</div>
 
 <br />
 
@@ -91,7 +87,7 @@ To run this project locally on your machine, follow these simple steps.
 
 ## 🧠 Code Highlight
 
-A sneak peek of the core HTML structure used for the calculator display and history drawer.
+A sneak peek of the code
 
 ```html
 <div class="calculator">
