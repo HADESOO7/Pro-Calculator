@@ -14,6 +14,11 @@
     <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" />
   </p>
 
+  <h4>
+    <a href="https://procalculatormanu.netlify.app">View Live Demo 🚀</a>
+    <span> · </span>
+    <a href="https://github.com/HADESOO7/Pro-Calculator/issues">Report Bug 🪲</a>
+  </h4>
 </div>
 
 <br />
