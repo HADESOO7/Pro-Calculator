@@ -71,7 +71,7 @@ To run this project locally on your machine, follow these simple steps.
 
 1.  **Clone the repository**
     ```sh
-    git clone [https://github.com/HADESOO7/Pro-Calculator.git](https://github.com/HADESOO7/Pro-Calculator.git)
+    git clone https://github.com/HADESOO7/Pro-Calculator.git
     ```
 2.  **Navigate to the project directory**
     ```sh
