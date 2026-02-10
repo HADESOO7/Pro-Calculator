@@ -15,9 +15,9 @@
   </p>
 
   <h4>
-    <a href="https://[YOUR-USERNAME].github.io/[YOUR-REPO-NAME]/">View Live Demo 🚀</a>
+    <a href="https://pro-calculator-hadesoo7.netlify.app/">View Live Demo 🚀</a>
     <span> · </span>
-    <a href="https://github.com/[YOUR-USERNAME]/[YOUR-REPO-NAME]/issues">Report Bug 🪲</a>
+    <a href="https://github.com/HADESOO7/Pro-Calculator/issues">Report Bug 🪲</a>
   </h4>
 </div>
 
@@ -46,9 +46,9 @@ Unlike standard web calculators, this application manages state to allow for com
 ## 📸 Interface Preview
 
 <div align="center"> 
-  <img src="[screenshot(62).png]" alt="Calculator Main View" width="300" />
+  <img src="screenshots/screen1.png" alt="Calculator Main View" width="300" />
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="[screenshot(63).png]" alt="History Drawer View" width="300" />
+  <img src="screenshots/screen2.png" alt="History Drawer View" width="300" />
 </div>
 
 > *The interface features a Glassmorphism-inspired history drawer and neon-accented controls optimized for OLED screens.*
@@ -80,19 +80,20 @@ To run this project locally on your machine, follow these simple steps.
 
 1.  **Clone the repository**
     ```sh
-    git clone [https://github.com/](https://github.com/)[YOUR-USERNAME]/[YOUR-REPO-NAME].git
+    git clone [https://github.com/HADESOO7/Pro-Calculator.git](https://github.com/HADESOO7/Pro-Calculator.git)
     ```
 2.  **Navigate to the project directory**
     ```sh
-    cd [YOUR-REPO-NAME]
+    cd Pro-Calculator
     ```
 3.  **Open the file**
     Double-click `index.html` to launch the application in your default browser.
 
 ## 🧠 Code Highlight
 
-  Sneak peak of the code. 
+A sneak peek of the core HTML structure used for the calculator display and history drawer.
 
+```html
 <div class="calculator">
     
     <div class="mode-indicator" id="modeBtn" onclick="toggleMode()">DEG</div>
@@ -112,3 +113,4 @@ To run this project locally on your machine, follow these simple steps.
             </div>
         <button class="clear-btn" onclick="clearHistory()">Clear All History</button>
     </div>
+</div>
