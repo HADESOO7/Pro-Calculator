@@ -46,9 +46,9 @@ Unlike standard web calculators, this application manages state to allow for com
 ## 📸 Interface Preview
 
 <div align="center"> 
-  <img src="screenshots/[screenshot1.png]" alt="Calculator Main View" width="300" />
+  <img src="[screenshot(62).png]" alt="Calculator Main View" width="300" />
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="screenshots/[screenshot2.png]" alt="History Drawer View" width="300" />
+  <img src="[screenshot(63).png]" alt="History Drawer View" width="300" />
 </div>
 
 > *The interface features a Glassmorphism-inspired history drawer and neon-accented controls optimized for OLED screens.*
