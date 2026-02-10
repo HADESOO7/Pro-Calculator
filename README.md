@@ -1,21 +1,16 @@
-<div align="center">
+# 🧮 Pro Scientific Calculator
 
-  <h1>🧮 Pro Scientific Calculator</h1>
-  
-  <p>
-    A high-performance, web-based scientific calculator featuring a <br>
-    <strong>mobile-first dark mode UI</strong>, <strong>history tracking</strong>, and <strong>advanced trigonometric functions</strong>.
-  </p>
+A high-performance, web-based scientific calculator featuring a <br>
+**mobile-first dark mode UI**, **history tracking**, and **advanced trigonometric functions**.
 
-  <p>
-    <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
-    <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
-    <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
-    <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" />
-  </p>
+<p>
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" />
+</p>
 
-  <h4>
-    <a href="https://procalculatormanu.netlify.app">View Live Demo 🚀</a>
+### <a href="https://procalculatormanu.netlify.app">View Live Demo 🚀</a>
 
 <br />
 
