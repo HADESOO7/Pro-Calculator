@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Mobile Calculator</title>
+    <style>
+        :root {
+            --bg: #000000;
+            --display-bg: #111;
+            --btn-num: #333333;
+            --btn-op: #ff9f0a; /* iOS Orange */
+            --btn-top: #a5a5a5; /* iOS Light Grey */
+            --btn-sci: #212121; /* Darker grey for scientific */
+            --text-white: #fff;
+            --text-black: #000;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #1c1c1c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Phone Container */
+        .calculator {
+            width: 375px;
+            height: 812px; /* iPhone X Aspect Ratio */
+            background-color: var(--bg);
+            border-radius: 40px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid #333;
+        }
+
+        /* --- DISPLAY AREA --- */
+        .display {
+            flex: 1;
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        .mode-indicator {
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            font-size: 14px;
+            color: var(--btn-op);
+            font-weight: bold;
+            cursor: pointer;
+            border: 1px solid var(--btn-op);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .history-icon {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 20px;
+            color: #888;
+            cursor: pointer;
+        }
+
+        #expression {
+            color: #888;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            min-height: 30px;
+            word-break: break-all;
+        }
+
+        #result {
+            color: var(--text-white);
+            font-size: 4rem;
+            font-weight: 300;
+            line-height: 1;
+        }
+
+        /* --- KEYPAD --- */
+        .keypad {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding-bottom: 40px; /* Space for home bar gesture */
+        }
+
+        /* Button Styling */
+        button {
+            height: 70px;
+            width: 70px;
+            border-radius: 50%; /* Perfect circles */
+            border: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text-white);
+            cursor: pointer;
+            transition: filter 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button:active { filter: brightness(130%); }
+
+        /* Color Classes */
+        .btn-num { background-color: var(--btn-num); }
+        .btn-op { background-color: var(--btn-op); font-size: 1.8rem; }
+        .btn-top { background-color: var(--btn-top); color: var(--text-black); }
+        .btn-sci { background-color: var(--btn-sci); font-size: 1rem; border-radius: 35px; /* Pill shape for small buttons */ height: 50px; width: auto; }
+
+        /* Zero button spans 2 columns */
+        .zero {
+            grid-column: span 2;
+            width: 100%;
+            border-radius: 40px;
+            padding-left: 30px;
+            justify-content: flex-start;
+        }
+
+        /* Scientific Row Styling */
+        .sci-row {
+            grid-column: span 4;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .sci-row button {
+            width: 18%; /* Fit 5 buttons */
+            height: 40px;
+            font-size: 0.9rem;
+            border-radius: 10px;
+            background-color: #2c2c2c;
+        }
+
+        /* --- HISTORY DRAWER --- */
+        .history-drawer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: rgba(20, 20, 20, 0.98);
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            transform: translateY(110%);
+            transition: transform 0.3s ease-out;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid #333;
+        }
+
+        .history-drawer.open { transform: translateY(0); }
+
+        .drawer-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+        .drawer-header h3 { margin: 0; color: #fff; font-weight: 400; }
+        .close-btn { background: none; color: #888; font-size: 24px; padding: 0; width: auto; height: auto; }
+        
+        .history-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .history-item {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            color: #fff;
+            text-align: right;
+        }
+        .hist-exp { color: #888; font-size: 0.9rem; margin-bottom: 4px; }
+        .hist-res { color: var(--btn-op); font-size: 1.4rem; }
+
+        .clear-btn {
+            margin: 20px;
+            background: #ff453a;
+            color: white;
+            border-radius: 15px;
+            width: calc(100% - 40px);
+            align-self: center;
+            font-size: 1rem;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    
+    <div class="mode-indicator" id="modeBtn" onclick="toggleMode()">DEG</div>
+    <div class="history-icon" onclick="toggleHistory()">🕒</div>
+
+    <div class="display">
+        <div id="expression"></div>
+        <div id="result">0</div>
+    </div>
+
+    <div class="history-drawer" id="historyDrawer">
+        <div class="drawer-header">
+            <h3>History</h3>
+            <button class="close-btn" onclick="toggleHistory()">✕</button>
+        </div>
+        <div class="history-list" id="historyList">
+            </div>
+        <button class="clear-btn" onclick="clearHistory()">Clear All History</button>
+    </div>
+
+    <div class="keypad">
+        
+        <div class="sci-row">
+            <button onclick="input('sin(')">sin</button>
+            <button onclick="input('cos(')">cos</button>
+            <button onclick="input('tan(')">tan</button>
+            <button onclick="input('log(')">log</button>
+            <button onclick="input('ln(')">ln</button>
+        </div>
+        
+        <div class="sci-row">
+            <button onclick="input('(')">(</button>
+            <button onclick="input(')')">)</button>
+            <button onclick="input('^')">x^y</button>
+            <button onclick="input('sqrt(')">√</button>
+            <button onclick="input('PI')">π</button>
+        </div>
+
+        <button class="btn-top" onclick="clearAll()">AC</button>
+        <button class="btn-top" onclick="backspace()">⌫</button>
+        <button class="btn-top" onclick="input('%')">%</button>
+        <button class="btn-op" onclick="input('/')">÷</button>
+
+        <button class="btn-num" onclick="input('7')">7</button>
+        <button class="btn-num" onclick="input('8')">8</button>
+        <button class="btn-num" onclick="input('9')">9</button>
+        <button class="btn-op" onclick="input('*')">×</button>
+
+        <button class="btn-num" onclick="input('4')">4</button>
+        <button class="btn-num" onclick="input('5')">5</button>
+        <button class="btn-num" onclick="input('6')">6</button>
+        <button class="btn-op" onclick="input('-')">−</button>
+
+        <button class="btn-num" onclick="input('1')">1</button>
+        <button class="btn-num" onclick="input('2')">2</button>
+        <button class="btn-num" onclick="input('3')">3</button>
+        <button class="btn-op" onclick="input('+')">+</button>
+
+        <button class="btn-num zero" onclick="input('0')">0</button>
+        <button class="btn-num" onclick="input('.')">.</button>
+        <button class="btn-op" onclick="calculate()">=</button>
+    </div>
+</div>
+
+<script>
+    // --- STATE ---
+    let currentExp = "";
+    let isDegree = true; // Default to Degrees
+    const displayExp = document.getElementById('expression');
+    const displayRes = document.getElementById('result');
+    const historyList = document.getElementById('historyList');
+
+    // --- INPUT HANDLING ---
+    function input(val) {
+        if (displayRes.innerText !== "0" && currentExp === "") {
+            // If starting new calculation after a result
+            displayRes.innerText = "0";
+        }
+        
+        currentExp += val;
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        // Beautify display (replace * with ×, etc)
+        let visualExp = currentExp
+            .replace(/\*/g, '×')
+            .replace(/\//g, '÷')
+            .replace(/sqrt/g, '√')
+            .replace(/PI/g, 'π');
+        
+        displayRes.innerText = visualExp || "0";
+    }
+
+    function clearAll() {
+        currentExp = "";
+        displayRes.innerText = "0";
+        displayExp.innerText = "";
+    }
+
+    function backspace() {
+        currentExp = currentExp.slice(0, -1);
+        updateDisplay();
+    }
+
+    // --- MATH LOGIC ---
+    function toggleMode() {
+        isDegree = !isDegree;
+        document.getElementById('modeBtn').innerText = isDegree ? "DEG" : "RAD";
+    }
+
+    // Custom Trig functions to handle DEG/RAD
+    function sin(x) { return isDegree ? Math.sin(x * Math.PI / 180) : Math.sin(x); }
+    function cos(x) { return isDegree ? Math.cos(x * Math.PI / 180) : Math.cos(x); }
+    function tan(x) { return isDegree ? Math.tan(x * Math.PI / 180) : Math.tan(x); }
+    
+    // Other Helpers
+    const log = Math.log10;
+    const ln = Math.log;
+    const sqrt = Math.sqrt;
+    const PI = Math.PI;
+    const e = Math.E;
+
+    function calculate() {
+        try {
+            let evalStr = currentExp;
+
+            // 1. Handle Power operator (^) -> Replace with Math.pow logic or **
+            // We replace x^y with x**y
+            evalStr = evalStr.replace(/\^/g, '**');
+
+            // 2. Handle Implied Multiplication (e.g., 2sin(30) -> 2*sin(30))
+            // Insert * between number and function/parenthesis
+            evalStr = evalStr.replace(/(\d)(sin|cos|tan|log|ln|sqrt|\()/g, '$1*$2');
+            
+            // 3. Close parentheses automatically if missing
+            const openParens = (evalStr.match(/\(/g) || []).length;
+            const closeParens = (evalStr.match(/\)/g) || []).length;
+            if (openParens > closeParens) {
+                evalStr += ")".repeat(openParens - closeParens);
+            }
+
+            // 4. Evaluate using the helper functions above
+            let result = eval(evalStr);
+
+            // 5. Formatting
+            if (!isFinite(result)) {
+                result = "Error";
+            } else {
+                // Remove floating point errors (e.g. 0.0000000004)
+                result = parseFloat(result.toFixed(8)).toString();
+            }
+
+            // 6. Update UI
+            displayExp.innerText = currentExp + " ="; // Move equation to top
+            displayRes.innerText = result; // Show answer
+            
+            // 7. Save to History
+            addToHistory(currentExp, result);
+            
+            // 8. Prepare for next operation
+            currentExp = result; 
+
+        } catch (e) {
+            displayRes.innerText = "Error";
+            setTimeout(() => { clearAll(); }, 1500);
+        }
+    }
+
+    // --- HISTORY ---
+    function toggleHistory() {
+        document.getElementById('historyDrawer').classList.toggle('open');
+    }
+
+    function addToHistory(exp, res) {
+        if(res === "Error") return;
+
+        const div = document.createElement('div');
+        div.className = 'history-item';
+        div.innerHTML = `<div class="hist-exp">${exp} =</div><div class="hist-res">${res}</div>`;
+        
+        // Tap history to reuse result
+        div.onclick = () => {
+            currentExp += res;
+            updateDisplay();
+            toggleHistory();
+        };
+
+        historyList.prepend(div);
+    }
+
+    function clearHistory() {
+        historyList.innerHTML = '';
+        toggleHistory();
+    }
+</script>
+
+</body>
+</html>
