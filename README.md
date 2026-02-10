@@ -10,7 +10,7 @@ A high-performance, web-based scientific calculator featuring a <br>
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" />
 </p>
 
-### <a href="https://procalculatormanu.netlify.app">View Live Demo 🚀</a>
+### <a href="https://hadesoo7.github.io/Pro-Calculator/">View Live Demo 🚀</a>
 
 <br />
 
